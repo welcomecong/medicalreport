@@ -18,22 +18,23 @@ import com.cong.service.User;
 public class SearchServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		User login_user = (User) request.getSession().getAttribute("login_user");
-		System.out.println(login_user.getCompanyname());
-		String customno = login_user.getCompanyno();
-		String salid = request.getParameter("salid");
-		String goodsname = request.getParameter("goodsname");
-		String lotno = request.getParameter("lotno");
-		System.out.println(customno);
-		System.out.println(salid);
-		System.out.println(goodsname);
-		System.out.println(lotno);
+		
+		request.setCharacterEncoding("utf-8");	//设置编码
+		
+		User login_user = (User) request.getSession().getAttribute("login_user");	//获取登录客户的信息
+		String customno = login_user.getCompanyno();	//获取登录客户的客户编码
+		String salid = request.getParameter("salid");	//获取销售单ID
+		String goodsname = request.getParameter("goodsname");	//获取商品名称
+		String lotno = request.getParameter("lotno");		//获取商品批号
+		
+		//
 		List<Report> report = new ReportDaoImpl().findAll(customno, salid, goodsname, lotno);
 		System.out.println(report.isEmpty());
 		Iterator<Report> iter = report.iterator();
 		while(iter.hasNext()) {
 			Report s = iter.next();
+			System.out.print(s.getGoodsname() + "--->");
+			System.out.print(s.getFactoryname()  + "--->" );
 			System.out.println(s.getLotno());
 		}
 	}

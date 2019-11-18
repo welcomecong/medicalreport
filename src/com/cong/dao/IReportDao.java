@@ -6,4 +6,6 @@ import com.cong.service.Report;
 
 public interface IReportDao {
 	public List<Report> findAll(String customno,String salid,String goodsname,String lotno);
+	//public List<Report> findAll(String salid);
+	//public List<Report> findAll(String customno,String lotno);
 }
