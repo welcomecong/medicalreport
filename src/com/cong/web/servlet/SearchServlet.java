@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cong.dao.impl.ReportDaoImpl;
-import com.cong.service.Report;
-import com.cong.service.User;
+import com.cong.domain.Report;
+import com.cong.domain.User;
 
 @WebServlet(urlPatterns = "/searchServlet")
 public class SearchServlet extends HttpServlet {

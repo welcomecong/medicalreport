@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cong.dao.IUserDao;
-import com.cong.service.User;
+import com.cong.domain.User;
 import com.cong.util.OracleConnection;
 
 public class UserDaoImpl implements IUserDao{

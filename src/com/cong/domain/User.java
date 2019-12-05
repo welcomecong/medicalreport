@@ -1,6 +1,7 @@
-package com.cong.service;
+package com.cong.domain;
 
 public class User {
+	
 	private String companyno;		//pub_company表中的客户编码，对应loign表单的userno
 	private String companyname;		//pub_company表中的客户名称
 	private String ucompanyno;		//pub_company表中的统一码，对应loign表单的password
@@ -23,11 +24,10 @@ public class User {
 	public void setUcompanyno(String ucompanyno) {
 		this.ucompanyno = ucompanyno;
 	}
+	
 	@Override
 	public String toString() {
 		return "User [companyno=" + companyno + ", companyname=" + companyname + ", ucompanyno=" + ucompanyno + "]";
 	}
-	
-	
 	
 }

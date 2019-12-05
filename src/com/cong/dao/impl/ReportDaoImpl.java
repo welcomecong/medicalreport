@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cong.dao.IReportDao;
-import com.cong.service.Report;
+import com.cong.domain.Report;
 import com.cong.util.OracleConnection;
 
 public class ReportDaoImpl implements IReportDao{
