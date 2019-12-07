@@ -30,37 +30,45 @@ public class LoginServelt extends HttpServlet {
 		//2.从session中获取CheckCodeServlet生成验证码
 		HttpSession session = request.getSession();
 		String checkCode_server = (String) session.getAttribute("CHECKCODE_SERVER");
+		session.removeAttribute("CHECKCODE_SERVER");
+		//实例化错误信息对象以及json对象序列化的ObjectMapper对象
+		ResultInfo info = new ResultInfo();
+		ObjectMapper mapper = new ObjectMapper();
 		//3.判断
-		if(checkCode_server == null || "".equals(checkCode_server) || !checkCode_server.equalsIgnoreCase(checkCode)){
+		if(checkCode_server == null || !checkCode_server.equalsIgnoreCase(checkCode)){
             //验证码错误
-            ResultInfo info = new ResultInfo();
-            //注册失败
-            info.setFlag(false);
-            info.setErrorMsg("验证码错误");
+			info.setFlag(false);
+			info.setErrorMsg("验证码错误");
             //将info对象序列化为json
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(info);
+			String json = mapper.writeValueAsString(info);
             response.setContentType("application/json;charset=utf-8");
-            response.getWriter().write(json);
+			response.getWriter().write(json);
+			return;
         }
 		
 		//获取用户名和密码并校验
 		//1.获取输入的用户名和密码
-		String companyno = request.getParameter("userno");	
-		String ucompanyno = request.getParameter("password");
+		String companyno = request.getParameter("companyno");	
+		String ucompanyno = request.getParameter("ucompanyno");
 		//2.登录验证
 		User login_user = new UserDaoImpl().findCompanyname(companyno, ucompanyno);
 		if(login_user != null) {
-			//2.1登录验证通过，保存user信息。
-			request.getSession().setAttribute("companyno", companyno);
-			request.getSession().setAttribute("companyname", login_user.getCompanyname());
-			request.getSession().setAttribute("companyno", companyno);
-			request.getSession().setAttribute("login_user", login_user);
-			response.sendRedirect("search.jsp");
+			//用户名或密码正确
+			//将登录的用户所有信息保存到session中
+			request.getSession().setAttribute("user", login_user);
+			info.setFlag(true);
+			//将info对象序列化为json
+			String json = mapper.writeValueAsString(info);
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().write(json);
 		}else {
-			//2.2登录验证不通过，跳回到登录页面
-			request.setAttribute("login_errormsg", "用户名或密码错误，请重新输入");
-			request.getRequestDispatcher("login.html").forward(request, response);
+			//用户名或密码不正确
+			info.setFlag(false);
+			info.setErrorMsg("用户名或密码错误");
+			String json = mapper.writeValueAsString(info);
+			System.out.println(json);
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().write(json);
 		}
 		//System.out.println(login_user);
 	}

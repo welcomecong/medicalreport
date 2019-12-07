@@ -5,6 +5,7 @@ public class User {
 	private String companyno;		//pub_company表中的客户编码，对应loign表单的userno
 	private String companyname;		//pub_company表中的客户名称
 	private String ucompanyno;		//pub_company表中的统一码，对应loign表单的password
+	//private Integer companyid;		//pub_company表中的客户ID，唯一，数字类型
 	
 	public String getCompanyno() {
 		return companyno;

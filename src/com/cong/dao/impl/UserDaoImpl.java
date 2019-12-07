@@ -22,7 +22,7 @@ public class UserDaoImpl implements IUserDao{
 	 * 
 	 */
 	@Override
-	public User findCompanyname(String companyno,String ucompanyno) {
+	public  User findCompanyname(String companyno,String ucompanyno) {
 		//List<User> all = new ArrayList<User>();
 		String sql = "select companyname from pub_company where companyno = ? and ucompanyno = ?";
 		User user = null;
